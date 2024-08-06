@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="proyectoprogra5" Class="LinqConexionDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-0KNF3UG\SQLEXPRESS;Initial Catalog=proyectoprogra5;Integrated Security=True;Trust Server Certificate=True" SettingsObjectName="BackendProyectoFinal.Properties.Settings" SettingsPropertyName="proyectoprogra5ConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.TB_Amistad" Member="TB_Amistad">
+    <Type Name="TB_Amistad">
+      <Column Name="identificadorAmistad" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="identificadorUsuario1" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="identificadorUsuario2" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="FechaInicio" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Estatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="TB_Usuario_TB_Amistad" Member="TB_Usuario" ThisKey="identificadorUsuario1" OtherKey="identificadorUsuario" Type="TB_Usuario" IsForeignKey="true" />
+      <Association Name="TB_Usuario_TB_Amistad1" Member="TB_Usuario1" ThisKey="identificadorUsuario2" OtherKey="identificadorUsuario" Type="TB_Usuario" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_Movimiento" Member="TB_Movimiento">
+    <Type Name="TB_Movimiento">
+      <Column Name="identificadorMovimiento" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="identificadorTurno" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="identificadorUsuario" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="direccionX" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="direccionY" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="jugador" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="TB_Turno_TB_Movimiento" Member="TB_Turno" ThisKey="identificadorTurno" OtherKey="identificadorTurno" Type="TB_Turno" IsForeignKey="true" />
+      <Association Name="TB_Usuario_TB_Movimiento" Member="TB_Usuario" ThisKey="identificadorUsuario" OtherKey="identificadorUsuario" Type="TB_Usuario" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_PartidaFutbolito" Member="TB_PartidaFutbolito">
+    <Type Name="TB_PartidaFutbolito">
+      <Column Name="identificadorJuego" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="identificadorUsuario1" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="identificadorUsuario2" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="fecha" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="usuarioGanadorPartida" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Association Name="TB_PartidaFutbolito_TB_Turno" Member="TB_Turno" ThisKey="identificadorJuego" OtherKey="identificadorPartida" Type="TB_Turno" />
+      <Association Name="TB_Usuario_TB_PartidaFutbolito" Member="TB_Usuario" ThisKey="identificadorUsuario1" OtherKey="identificadorUsuario" Type="TB_Usuario" IsForeignKey="true" />
+      <Association Name="TB_Usuario_TB_PartidaFutbolito1" Member="TB_Usuario1" ThisKey="identificadorUsuario2" OtherKey="identificadorUsuario" Type="TB_Usuario" IsForeignKey="true" />
+      <Association Name="TB_Usuario_TB_PartidaFutbolito2" Member="TB_Usuario2" ThisKey="usuarioGanadorPartida" OtherKey="identificadorUsuario" Type="TB_Usuario" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_PartidaGalaga" Member="TB_PartidaGalaga">
+    <Type Name="TB_PartidaGalaga">
+      <Column Name="identificadorJuego" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="identificadorUsuario1" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="PuntajeUsuario1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="duracion" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="fechaJuego" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TB_Usuario_TB_PartidaGalaga" Member="TB_Usuario" ThisKey="identificadorUsuario1" OtherKey="identificadorUsuario" Type="TB_Usuario" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_Turno" Member="TB_Turno">
+    <Type Name="TB_Turno">
+      <Column Name="identificadorTurno" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="identificadorPartida" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="numeroTurno" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="usuarioGanador" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="TB_Turno_TB_Movimiento" Member="TB_Movimiento" ThisKey="identificadorTurno" OtherKey="identificadorTurno" Type="TB_Movimiento" />
+      <Association Name="TB_PartidaFutbolito_TB_Turno" Member="TB_PartidaFutbolito" ThisKey="identificadorPartida" OtherKey="identificadorJuego" Type="TB_PartidaFutbolito" IsForeignKey="true" />
+      <Association Name="TB_Usuario_TB_Turno" Member="TB_Usuario" ThisKey="usuarioGanador" OtherKey="identificadorUsuario" Type="TB_Usuario" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_Usuario" Member="TB_Usuario">
+    <Type Name="TB_Usuario">
+      <Column Name="identificadorUsuario" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaNacimiento" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Correo" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Contrasena" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Estatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FotoPerfil" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Association Name="TB_Usuario_TB_Amistad" Member="TB_Amistad" ThisKey="identificadorUsuario" OtherKey="identificadorUsuario1" Type="TB_Amistad" />
+      <Association Name="TB_Usuario_TB_Amistad1" Member="TB_Amistad1" ThisKey="identificadorUsuario" OtherKey="identificadorUsuario2" Type="TB_Amistad" />
+      <Association Name="TB_Usuario_TB_Movimiento" Member="TB_Movimiento" ThisKey="identificadorUsuario" OtherKey="identificadorUsuario" Type="TB_Movimiento" />
+      <Association Name="TB_Usuario_TB_PartidaFutbolito" Member="TB_PartidaFutbolito" ThisKey="identificadorUsuario" OtherKey="identificadorUsuario1" Type="TB_PartidaFutbolito" />
+      <Association Name="TB_Usuario_TB_PartidaFutbolito1" Member="TB_PartidaFutbolito1" ThisKey="identificadorUsuario" OtherKey="identificadorUsuario2" Type="TB_PartidaFutbolito" />
+      <Association Name="TB_Usuario_TB_PartidaFutbolito2" Member="TB_PartidaFutbolito2" ThisKey="identificadorUsuario" OtherKey="usuarioGanadorPartida" Type="TB_PartidaFutbolito" />
+      <Association Name="TB_Usuario_TB_PartidaGalaga" Member="TB_PartidaGalaga" ThisKey="identificadorUsuario" OtherKey="identificadorUsuario1" Type="TB_PartidaGalaga" />
+      <Association Name="TB_Usuario_TB_Turno" Member="TB_Turno" ThisKey="identificadorUsuario" OtherKey="usuarioGanador" Type="TB_Turno" />
+    </Type>
+  </Table>
+  <Function Name="dbo.SP_FutbolitoCrearPartida" Method="SP_FutbolitoCrearPartida">
+    <Parameter Name="V_identificadorUsuario1" Parameter="v_identificadorUsuario1" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="V_IdentificadorJuego" Parameter="v_IdentificadorJuego" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Parameter Name="V_DescripcionError" Parameter="v_DescripcionError" Type="System.String" DbType="NVarChar(255)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_FutbolitoGanador" Method="SP_FutbolitoGanador">
+    <Parameter Name="V_IdentificadorPartida" Parameter="v_IdentificadorPartida" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="V_IdentificadorUsuario" Parameter="v_IdentificadorUsuario" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="V_DescripcionError" Parameter="v_DescripcionError" Type="System.String" DbType="VarChar(255)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_FutbolitoTurnoResultado" Method="SP_FutbolitoTurnoResultado">
+    <Parameter Name="V_IdentificadorPartida" Parameter="v_IdentificadorPartida" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="V_IdentificadorTurno" Parameter="v_IdentificadorTurno" Type="System.Int32" DbType="Int" />
+    <Parameter Name="V_NumeroTurno" Parameter="v_NumeroTurno" Type="System.Int32" DbType="Int" />
+    <Parameter Name="V_IdentificadorTurnoSiguiente" Parameter="v_IdentificadorTurnoSiguiente" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="V_DescripcionError" Parameter="v_DescripcionError" Type="System.String" DbType="VarChar(255)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_GalagaCrearPartida" Method="SP_GalagaCrearPartida">
+    <Parameter Name="V_IdentificadorUsuario" Parameter="v_IdentificadorUsuario" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="V_PuntajeUsuario" Parameter="v_PuntajeUsuario" Type="System.Int32" DbType="Int" />
+    <Parameter Name="V_Duracion" Parameter="v_Duracion" Type="System.Double" DbType="Float" />
+    <Parameter Name="V_IdentificadorJuego" Parameter="v_IdentificadorJuego" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Parameter Name="V_DescripcionError" Parameter="v_DescripcionError" Type="System.String" DbType="NVarChar(255)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_GalagaObtenerPuntuacionesUsuarios" Method="SP_GalagaObtenerPuntuacionesUsuarios">
+    <ElementType Name="SP_GalagaObtenerPuntuacionesUsuariosResult">
+      <Column Name="identificadorJuego" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="identificadorUsuario1" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="PuntajeUsuario1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="fechaJuego" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_UsuarioAmistadIniciar" Method="SP_UsuarioAmistadIniciar">
+    <Parameter Name="V_identificadorUsuario1" Parameter="v_identificadorUsuario1" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="V_identificadorUsuario2" Parameter="v_identificadorUsuario2" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="V_Identificador" Parameter="v_Identificador" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="V_DescripcionError" Parameter="v_DescripcionError" Type="System.String" DbType="NVarChar(255)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_UsuarioVerificar" Method="SP_UsuarioVerificar">
+    <Parameter Name="V_correo" Parameter="v_correo" Type="System.String" DbType="VarChar(255)" />
+    <Parameter Name="V_contrasena" Parameter="v_contrasena" Type="System.String" DbType="VarChar(255)" />
+    <Parameter Name="V_DescripcionError" Parameter="v_DescripcionError" Type="System.String" DbType="NVarChar(255)" Direction="InOut" />
+    <ElementType Name="SP_UsuarioVerificarResult">
+      <Column Name="identificadorUsuario" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaNacimiento" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Correo" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="FotoPerfil" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_UsuarioCrear" Method="SP_UsuarioCrear">
+    <Parameter Name="V_Nombre" Parameter="v_Nombre" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="V_FechaNacimiento" Parameter="v_FechaNacimiento" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="V_Contrasena" Parameter="v_Contrasena" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="V_FotoPerfil" Parameter="v_FotoPerfil" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" />
+    <Parameter Name="V_Correo" Parameter="v_Correo" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="V_Indentificador" Parameter="v_Indentificador" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Parameter Name="V_DescripcionError" Parameter="v_DescripcionError" Type="System.String" DbType="NVarChar(255)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_UsuarioAmistadEliminar" Method="SP_UsuarioAmistadEliminar">
+    <Parameter Name="V_identificacionUsuario1" Parameter="v_identificacionUsuario1" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="V_identificacionUsuario2" Parameter="v_identificacionUsuario2" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="V_Estatus" Parameter="v_Estatus" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="V_DescripcionError" Parameter="v_DescripcionError" Type="System.String" DbType="NVarChar(255)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_UsuarioAmistadListar" Method="SP_UsuarioAmistadListar">
+    <Parameter Name="V_identificacionUsuario" Parameter="v_identificacionUsuario" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="SP_UsuarioAmistadListarResult">
+      <Column Name="identificadorUsuario1" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="NombreUsuario1" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="identificadorUsuario2" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="NombreUsuario2" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaInicio" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_GalagaPuntuacionUsuario" Method="SP_GalagaPuntuacionUsuario">
+    <Parameter Name="V_Usuario" Parameter="v_Usuario" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="SP_GalagaPuntuacionUsuarioResult">
+      <Column Name="identificadorJuego" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="identificadorUsuario1" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="PuntajeUsuario1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="duracion" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="fechaJuego" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_FutbolitoBuscarPartida" Method="SP_FutbolitoBuscarPartida">
+    <Parameter Name="V_IdentificadorUsuario" Parameter="v_IdentificadorUsuario" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="V_IdentificadorJeugo" Parameter="v_IdentificadorJeugo" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Parameter Name="v_IdentificadorTurno" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="V_DescripcionError" Parameter="v_DescripcionError" Type="System.String" DbType="NVarChar(255)" Direction="InOut" />
+    <Parameter Name="V_IdentificadorUsuario1" Parameter="v_IdentificadorUsuario1" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Parameter Name="V_nombreUsuario1" Parameter="v_nombreUsuario1" Type="System.String" DbType="NVarChar(255)" Direction="InOut" />
+    <ElementType Name="SP_FutbolitoBuscarPartidaResult">
+      <Column Name="identificadorUsuario1" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_FutbolitoTraerDatosPartida" Method="SP_FutbolitoTraerDatosPartida">
+    <Parameter Name="V_IdentificadorJuego" Parameter="v_IdentificadorJuego" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="V_IdentificadorUsuarioGanador" Parameter="v_IdentificadorUsuarioGanador" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Parameter Name="V_IdentificadorUsuario2" Parameter="v_IdentificadorUsuario2" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Parameter Name="V_NombreUsuario2" Parameter="v_NombreUsuario2" Type="System.String" DbType="NVarChar(255)" Direction="InOut" />
+    <Parameter Name="V_DescripcionError" Parameter="v_DescripcionError" Type="System.String" DbType="NVarChar(255)" Direction="InOut" />
+    <ElementType Name="SP_FutbolitoTraerDatosPartidaResult">
+      <Column Name="identificadorUsuario1" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="identificadorUsuario2" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="usuarioGanadorPartida" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_FutbolitoMovimientoInsertar" Method="SP_FutbolitoMovimientoInsertar">
+    <Parameter Name="V_IdentificadorTurno" Parameter="v_IdentificadorTurno" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="V_IdentificadorUsuario" Parameter="v_IdentificadorUsuario" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="V_DireccionX" Parameter="v_DireccionX" Type="System.Double" DbType="Float" />
+    <Parameter Name="V_DireccionY" Parameter="v_DireccionY" Type="System.Double" DbType="Float" />
+    <Parameter Name="V_TipoJugador" Parameter="v_TipoJugador" Type="System.Int32" DbType="Int" />
+    <Parameter Name="V_IdentificadorMovimiento" Parameter="v_IdentificadorMovimiento" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="V_DescripcionError" Parameter="v_DescripcionError" Type="System.String" DbType="VarChar(255)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>
